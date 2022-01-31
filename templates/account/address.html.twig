@@ -1,0 +1,45 @@
+{% extends 'base.html.twig' %}
+{% block title %}
+Mes adresses - La Boutique Française
+{% endblock %}
+
+{% block content %}
+    <a href="{{ path('account_address_add') }}" class="btn btn-info btn-sm float-right">Ajouter un adresse</a>
+<h1>Mes Adresses</h1>
+    C'est dans cet espace que vous allez pouvoir gérer toutes vos adresses.
+    <hr>
+
+    <a href="{{ path('account') }}"><- Retour</a><br><br>
+    {% if app.user.addresses|length > 0 %}
+
+        <div class="row">
+        {% for adresse in app.user.addresses  %}
+            <div class="col-md-4">
+                <div class="card" style="width: 18rem;">
+                    <div class="card-body">
+                        <h5 class="card-title">{{ adresse.name }}</h5>
+                        <p class="card-text">
+                            {{ adresse.address }}<br>
+                            {{ adresse.postal }} <br>
+                            {{ adresse.city }} <br>
+                            {{ adresse.country }}
+                        </p>
+                        <a href="{{ path('account_address_edit', {'id': adresse.id}) }}" class="btn btn-info btn-sm">Modifier</a>
+                        <a href="{{ path('account_address_delete', {'id': adresse.id}) }}" class="btn btn-danger btn-sm">Supprimer</a>
+                    </div>
+                </div>
+            </div>
+        {% endfor %}
+        </div>
+
+    {% else %}
+        <p class="text-center">
+            Vous n'avez pas encore inscrit d'adresses.
+        </p>
+
+    {% endif %}
+
+{% endblock %}
+
+
+
